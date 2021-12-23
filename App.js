@@ -1,9 +1,15 @@
-import React, {useState, useRef} from "react";
-import { SafeAreaView } from "react-native";
+import React, {useState, useRef, useMemo} from "react";
+import { SafeAreaView, Text } from "react-native";
 import CreateUser from "./components/CreateUser";
 import InputSample from "./components/InputSample";
 import InputSampleSecond from "./components/InputSampleSecond";
 import UserList from "./components/UserList";
+
+function countActiveUsers(users) {
+  console.log('활성 사용자 수를 세는중...');
+  return users.filter(user => user.active).length;
+}
+
 
 const App = () => {
   const [inputs, setInputs] = useState({
@@ -76,7 +82,8 @@ const App = () => {
     );
   };
 
-  
+  const count = useMemo(() => countActiveUsers(users), [users]);
+
   return (
     <SafeAreaView>
       <InputSampleSecond />
@@ -91,6 +98,7 @@ const App = () => {
         onRemove={onRemove}
         onToggle={onToggle}
       />
+      <Text>Active User Number : {count}</Text>
     </SafeAreaView>
   );
 };
