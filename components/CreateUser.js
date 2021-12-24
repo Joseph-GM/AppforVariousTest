@@ -1,7 +1,7 @@
 import React, {useRef} from 'react'
 import { View, Text, TextInput,StyleSheet, Button } from 'react-native'
 
-export default function CreateUser({ username,email, onChange, onCreate}) {
+function CreateUser({ username,email, onChange, onCreate}) {
     const secondInput = useRef()
     return (
         <View>
@@ -42,3 +42,5 @@ const styles = StyleSheet.create({
         color: '#f44336'
     }
   });
+
+  export default React.memo(CreateUser);

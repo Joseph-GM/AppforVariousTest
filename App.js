@@ -1,4 +1,4 @@
-import React, {useState, useRef, useMemo} from "react";
+import React, {useState, useRef, useMemo, useCallback} from "react";
 import { SafeAreaView, Text } from "react-native";
 import CreateUser from "./components/CreateUser";
 import InputSample from "./components/InputSample";
@@ -53,7 +53,7 @@ const App = () => {
   }
 
   
-  const onCreate = () => {
+  const onCreate = useCallback(() => {
 
     const user = {
       id: nextId.current,
@@ -68,25 +68,26 @@ const App = () => {
       email: ''
     })
     nextId.current += 1;
-  }
+  }, [users, username, email])
 
-  const onRemove = id => {
+  const onRemove =  useCallback( id => {
     setUsers(users.filter(user => user.id !== id));
-  }
+  }, [users])
 
-  const onToggle = id => {
+  const onToggle = useCallback( id => {
     setUsers(
       users.map(user =>
         user.id === id ? { ...user, active: !user.active } : user
       )
     );
-  };
+  }, [users]);
 
   const count = useMemo(() => countActiveUsers(users), [users]);
 
   return (
     <SafeAreaView>
       <InputSampleSecond />
+      <Text>Active User Number : {count}</Text>
       <CreateUser
         username = {username}
         email={email}
@@ -98,7 +99,6 @@ const App = () => {
         onRemove={onRemove}
         onToggle={onToggle}
       />
-      <Text>Active User Number : {count}</Text>
     </SafeAreaView>
   );
 };

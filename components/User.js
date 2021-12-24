@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Text, StyleSheet, Button } from 'react-native'
 
-export default function User({user, onRemove, onToggle}) {
+function User({user, onRemove, onToggle}) {
     // console.log(user);
     return (
         <View style={styles.viewStyle}>
@@ -31,4 +31,6 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: 'bold'
     }
-})
+});
+
+export default React.memo(User);

@@ -2,7 +2,7 @@ import React from 'react'
 import { View, Text } from 'react-native'
 import User from './User';
 
-export default function UserList({users, onRemove, onToggle}) {
+function UserList({users, onRemove, onToggle}) {
     console.log(users);
     return (
         <View>
@@ -12,3 +12,5 @@ export default function UserList({users, onRemove, onToggle}) {
         </View>
     )
 }
+
+export default React.memo(UserList);
